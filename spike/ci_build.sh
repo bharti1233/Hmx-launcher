@@ -40,6 +40,15 @@ done
 ./gradlew :app:dependencies --configuration debugRuntimeClasspath \
   > "$OUT_DIR/$PREFIX-deps.txt" 2>&1 || true
 
+# Gate-I evidence: raw JUnit XMLs + lint report (small files).
+if [ -d app/build/test-results/testDebugUnitTest ]; then
+  mkdir -p "$OUT_DIR/test-xml"
+  cp app/build/test-results/testDebugUnitTest/*.xml "$OUT_DIR/test-xml/" 2>/dev/null || true
+fi
+for f in app/build/reports/lint-results-debug.html app/build/reports/lint-results-debug.txt; do
+  [ -f "$f" ] && cp "$f" "$OUT_DIR/" || true
+done
+
 echo "--- $OUT_DIR ---"
 ls -la "$OUT_DIR"
 exit $STATUS
