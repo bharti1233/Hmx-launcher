@@ -1,0 +1,96 @@
+name: Phase 1 spike verification
+
+on:
+  push:
+    branches: [main]
+    # Report/doc-only updates must not re-run the build jobs.
+    paths-ignore:
+      - 'reports/**'
+      - 'artifacts/**'
+      - 'README.md'
+      - '**/*.md'
+  workflow_dispatch:
+
+concurrency:
+  group: phase1-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  baseline-ark:
+    name: Baseline - unmodified ARK @ pinned commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout spike workspace (for the shared CI script)
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17 (toolchain insurance)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up JDK 21 (primary)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Clone upstream ARK at pinned commit
+        run: |
+          git clone https://github.com/jrs8205/ARK-launcher.git "$RUNNER_TEMP/baseline-ark"
+          git -C "$RUNNER_TEMP/baseline-ark" checkout 803b66d7561cdd8cc45cff44a026624be919cef7
+          git -C "$RUNNER_TEMP/baseline-ark" log -1 --format='%H %ci %s' \
+            | tee "$RUNNER_TEMP/baseline-artifacts-commit.txt"
+
+      - name: Build unmodified ARK (assembleDebug + unit tests + lint)
+        run: bash spike/ci_build.sh "$RUNNER_TEMP/baseline-ark" "$RUNNER_TEMP/baseline-artifacts" baseline
+
+      - name: Upload baseline CI artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase1-baseline-ci
+          path: ${{ runner.temp }}/baseline-artifacts
+          retention-days: 7
+
+  spike-ark-backdrop:
+    name: Spike - ARK + Backdrop 2.0.1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout spike workspace
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17 (toolchain insurance)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up JDK 21 (primary)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Build ARK + Backdrop 2.0.1 (assembleDebug + unit tests + lint)
+        run: bash spike/ci_build.sh source/ark-launcher "$RUNNER_TEMP/spike-artifacts" spike
+
+      - name: Record run context for the evidence pack
+        if: always()
+        run: |
+          {
+            echo "repo=$GITHUB_REPOSITORY"
+            echo "sha=$GITHUB_SHA"
+            echo "run=$GITHUB_RUN_ID"
+          } > "$RUNNER_TEMP/spike-artifacts/run-context.txt"
+
+      - name: Upload spike CI artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase1-spike-ci
+          path: ${{ runner.temp }}/spike-artifacts
+          retention-days: 7
