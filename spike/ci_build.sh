@@ -49,6 +49,25 @@ for f in app/build/reports/lint-results-debug.html app/build/reports/lint-result
   [ -f "$f" ] && cp "$f" "$OUT_DIR/" || true
 done
 
+# APK delivery: verify assembleDebug actually emitted APKs, copy them, and dump their package
+# metadata with the SDK's own aapt2 so reports can cite exact package/version/minSdk — never
+# assumptions from a green task.
+if compgen -G "app/build/outputs/apk/debug/*.apk" >/dev/null; then
+  mkdir -p "$OUT_DIR/apk"
+  cp app/build/outputs/apk/debug/*.apk "$OUT_DIR/apk/"
+  ls -la app/build/outputs/apk/debug >> "$OUT_DIR/$PREFIX-apk-dir.txt"
+  AAPT2="$(ls "$ANDROID_HOME"/build-tools/*/aapt2 2>/dev/null | sort -V | tail -1)"
+  if [ -n "$AAPT2" ]; then
+    for apk in "$OUT_DIR"/apk/*.apk; do
+      "$AAPT2" dump badging "$apk" >> "$OUT_DIR/$PREFIX-apk-badging.txt" 2>&1 || true
+    done
+  else
+    echo "aapt2 not found under ANDROID_HOME=$ANDROID_HOME" > "$OUT_DIR/$PREFIX-apk-badging.txt"
+  fi
+else
+  echo "NO APK EMITTED under app/build/outputs/apk/debug/" > "$OUT_DIR/$PREFIX-apk-dir.txt"
+fi
+
 echo "--- $OUT_DIR ---"
 ls -la "$OUT_DIR"
 exit $STATUS

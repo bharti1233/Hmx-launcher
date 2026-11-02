@@ -87,10 +87,19 @@ jobs:
             echo "run=$GITHUB_RUN_ID"
           } > "$RUNNER_TEMP/spike-artifacts/run-context.txt"
 
-      - name: Upload spike CI artifacts
+      - name: Upload spike CI artifacts (logs + test results + APK metadata)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: phase1-spike-ci
           path: ${{ runner.temp }}/spike-artifacts
           retention-days: 7
+
+      - name: Upload debug APK for delivery
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: HMX-Launcher-Phase1-Debug-APK
+          path: ${{ runner.temp }}/spike-artifacts/apk/*.apk
+          if-no-files-found: error
+          retention-days: 30
