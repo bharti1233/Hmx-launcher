@@ -82,15 +82,88 @@ an emulator) to cover gates B/E and the runtime halves of C/D/F/G; (2) keep the 
 as it is now (it is; the module extraction is Phase-2 hygiene); (3) re-run the resolved-licence
 audit when new dependencies land. Everything Phase 1 had to prove without hardware is proven.
 
+## APK build status (Phase-1 delivery run 41488191035, commit b225f1c1)
+
+- **Build: PASS on GitHub-hosted runner** (same validated spike configuration, no upgrades).
+  `assembleDebug` re-ran from a fresh checkout and tests stayed green in the same run:
+  `:app:assembleDebug` PASS 253 s, `:app:testDebugUnitTest` PASS 58 s (65 tests, 0 failures),
+  `:app:lintDebug` PASS 158 s (0 errors).
+- Existence verified from the runner filesystem, not the task status:
+  `app/build/outputs/apk/debug/app-debug.apk` (runner list + `output-metadata.json` in
+  `artifacts/ci/spike-apk-dir.txt`), file size **40,704,990 bytes**, valid zip (248 entries,
+  21 dex files, manifest present). SHA-256 (recomputed after download from GitHub):
+  `4862f700a807b8de4d39d38bd6403dea721ffa86d345b3199dce952015d524ad`.
+- `aapt2 dump badging` (committed as `artifacts/ci/spike-apk-badging.txt`):
+
+| Field | Value |
+| --- | --- |
+| Package | `org.arkikeskus.launcher.debug` (upstream applicationId + upstream `.debug` suffix — the ARK spike build, installed beside any release launcher) |
+| Version | versionCode 65 / versionName 0.9.8 |
+| Min SDK | 30 (satisfies HMX's API-30 floor) |
+| Target/Compile SDK | 37 / 37 |
+| Label | "ARK-launcher debug" (upstream debug label; HMX rebrand is Phase 2) |
+| ABIs (native-code) | arm64-v8a, armeabi-v7a, x86, x86_64 — universal APK; OPPO A38 (Helio G85) uses arm64-v8a ✓ |
+
+## APK artifact upload status: DELIVERED ✅
+
+- Workflow: `.github/workflows/phase1.yml` gained a dedicated upload step (`if-no-files-found:
+  error` — the workflow FAILS if no APK is emitted, so a delivery cannot be claimed silently).
+- Artifact name: **`HMX-Launcher-Phase1-Debug-APK`** (retention 30 days).
+- Run URL: https://github.com/bharti1233/Hmx-launcher/actions/runs/41488191035 (both baseline and
+  spike jobs green).
+- Download location: run page → Artifacts → `HMX-Launcher-Phase1-Debug-APK`; direct API path
+  `https://api.github.com/repos/bharti1233/Hmx-launcher/actions/runs/41488191035/artifacts`
+  (artifact id 13162928075). Agent-side check: artifact ZIP downloaded and unzipped successfully —
+  contents = `app-debug.apk` (40,704,990 bytes, matches the runner-side size exactly).
+- Build logs + test results retained in the `phase1-spike-ci` / `phase1-baseline-ci` artifacts of
+  the same run (7-day retention, as before).
+- The APK is intentionally NOT committed to the repository — delivery is via the Actions artifact
+  (keeps the repo clean and the artefacts traceable to one verified run).
+
+## Installation instructions for OPPO A38 (Android 15 / ColorOS 15)
+
+1. Download `HMX-Launcher-Phase1-Debug-APK` from the run URL above → unzip → `app-debug.apk`.
+2. Transfer the APK to the phone (USB / cloud / `adb push app-debug.apk /sdcard/`).
+3. ColorOS: open the file (Files app) → allow **"Install apps from external sources"** for the
+   installer when prompted (ColorOS 15 path: Settings → Apps → App management → … → Special
+   access → Install unknown apps, or via the installer prompt directly).
+4. This build is a **debug build of the upstream ARK launcher** (`org.arkikeskus.launcher.debug`):
+   it installs alongside existing launchers and keeps its own home screen. You get two icons in
+   the app list: the launcher itself ("ARK-launcher debug" — the real home with widgets etc.),
+   and **"HMX Spike"** — the Phase-1 glass demo (dock / search bar / sheet + wallpaper picker).
+   The glass demo is the first thing to open for the device pass.
+5. Default-home switch for the device pass: Settings → Apps → Default apps → Home app →
+   "ARK-launcher debug" — or RoleManager's prompt when first pressing Home, as long as it was set.
+6. Optional ADB route (if the Files app install is refused): `adb install -r app-debug.apk`
+   with USB debugging enabled (ColorOS: Settings → About device → Version → tap Build number →
+   Developer options → USB debugging).
+7. Uninstall afterwards: Settings remove, or `adb uninstall org.arkikeskus.launcher.debug`.
+
+## Remaining device compatibility tests (after installing this APK)
+
+1. Three glass surfaces render visually (banner shows the resolved profile — expected
+   `Refractive` on Android 15 / API 35).
+2. Fallback check: first launch (no HMX wallpaper set) must show the tinted gradient + glass over
+   it; then Photo-Picker import must swap the backdrop.
+3. Frame timing on G85: swipe/sheet open/close via `dumpsys gfxinfo` / Perfetto; measured refresh
+   mode (90 vs 60 Hz) first.
+4. Memory: `dumpsys meminfo org.arkikeskus.launcher.debug` idle vs after wallpaper swaps (PSS/gfx
+   budgets in PHASE1_PERFORMANCE_REPORT.md).
+5. Cold/warm start (`am start -W`), process recreation, thermal soak.
+6. Default-home RoleManager flow + widget pinning flows (CONFIRM_PIN_*) + notification-dot binding.
+7. ColorOS-specific behaviours (background kill aggressiveness, gesture-home animations, widget
+    pinning dialogs).
+
 ## Evidence index
 
 | Run | Commit | Baseline | Spike | Notes |
 | --- | --- | --- | --- | --- |
 | 41480614719 | 92deb7f5 | PASS | FAIL | run-#1 spike compile errors (spike-only; fixed) |
 | 41482779958 | 40f4bc89 | PASS | PASS | fix validated |
-| 41485053843 | f6e624f5 | PASS | PASS | **final evidence run** — test XMLs + lint reports exported (`artifacts/ci/`) |
+| 41485053843 | f6e624f5 | PASS | PASS | evidence run — test XMLs + lint reports exported (`artifacts/ci/`) |
+| 41488191035 | b225f1c1 | PASS | PASS | **APK delivery run** — `HMX-Launcher-Phase1-Debug-APK` artifact |
 
 CI logs/artifacts: https://github.com/bharti1233/Hmx-launcher/actions (runs above; artifact names
-`phase1-baseline-ci` / `phase1-spike-ci`).
+`phase1-baseline-ci` / `phase1-spike-ci` / `HMX-Launcher-Phase1-Debug-APK`).
 
 *(This file is now final: every table above is populated from the actual CI runs.)*
