@@ -30,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.kyant.backdrop.Backdrop
 import com.kyant.backdrop.BackdropEffectScope
+import com.kyant.backdrop.backdrops.LayerBackdrop
 import com.kyant.backdrop.backdrops.layerBackdrop
 import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 import com.kyant.backdrop.drawBackdrop
@@ -46,7 +47,7 @@ import org.arkikeskus.launcher.R
 val LocalSpikeBackdrop = staticCompositionLocalOf<Backdrop?> { null }
 
 @Composable
-fun SpikeBackdropHost(content: @Composable (Backdrop?) -> Unit) {
+fun SpikeBackdropHost(content: @Composable (LayerBackdrop?) -> Unit) {
     val backdrop = rememberLayerBackdrop()
     CompositionLocalProvider(LocalSpikeBackdrop provides backdrop) {
         content(backdrop)
@@ -71,7 +72,7 @@ fun rememberSpikeGlassProfile(backdropAvailable: Boolean = LocalSpikeBackdrop.cu
 fun SpikeGlassSurface(
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(28.dp),
-    effects: BackdropEffectScope.() -> Unit = { blur(radius = 24.dp.roundToPx()) },
+    effects: BackdropEffectScope.() -> Unit = { blur(radius = 24.dp.toPx()) },
     fallbackColor: Color = Color(0xD9FFFFFF),
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -129,7 +130,7 @@ fun SpikeGlassSearchBar(
 ) {
     SpikeGlassSurface(
         modifier = modifier.height(52.dp),
-        effects = { blur(radius = 20.dp.roundToPx()) },
+        effects = { blur(radius = 20.dp.toPx()) },
     ) {
         Row(
             modifier = Modifier
@@ -160,10 +161,10 @@ fun SpikeGlassSearchBar(
 fun SpikeGlassSheet(
     modifier: Modifier = Modifier,
     effects: BackdropEffectScope.() -> Unit = {
-        blur(radius = 18.dp.roundToPx())
+        blur(radius = 18.dp.toPx())
         lens(
-            refractionHeight = 16.dp.roundToPx(),
-            refractionAmount = 10.dp.roundToPx(),
+            refractionHeight = 16.dp.toPx(),
+            refractionAmount = 10.dp.toPx(),
             depthEffect = true,
             chromaticAberration = false,
         )
