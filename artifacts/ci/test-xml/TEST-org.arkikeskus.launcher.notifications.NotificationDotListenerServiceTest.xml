@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-02T16:53:47.054Z" hostname="runnervmnwato" time="0.559">
+  <properties/>
+  <testcase name="expiredLocalHoldDeliversOnWakeWithoutAnotherNotification[30]" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.115"/>
+  <testcase name="packageChangeRefreshesMailClassificationWithoutReconnecting[30]" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.054"/>
+  <testcase name="sameKeyUpdateFromNewlyPinnedPersonIsDeliveredAndStaysActiveInAndroid[30]" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.013"/>
+  <testcase name="batchingDoesNotLoseHeadsUpSignalOrOnlyAlertOnceBookkeeping[30]" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.015"/>
+  <testcase name="ownRepliesCannotReappearThroughPersonOrAppFallback[30]" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.011"/>
+  <testcase name="mailKeepsCodeSubjectForBatchDecision[30]" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.013"/>
+  <testcase name="bigPictureAppNotificationsBecomeOneAppTile[30]" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.025"/>
+  <testcase name="mixedConversationKeepsOnlyIncomingTextAndCount[30]" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.013"/>
+  <testcase name="expiredLocalHoldDeliversOnWakeWithoutAnotherNotification" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.129"/>
+  <testcase name="packageChangeRefreshesMailClassificationWithoutReconnecting" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.045"/>
+  <testcase name="sameKeyUpdateFromNewlyPinnedPersonIsDeliveredAndStaysActiveInAndroid" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.016"/>
+  <testcase name="batchingDoesNotLoseHeadsUpSignalOrOnlyAlertOnceBookkeeping" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.021"/>
+  <testcase name="ownRepliesCannotReappearThroughPersonOrAppFallback" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.016"/>
+  <testcase name="mailKeepsCodeSubjectForBatchDecision" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.016"/>
+  <testcase name="bigPictureAppNotificationsBecomeOneAppTile" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.025"/>
+  <testcase name="mixedConversationKeepsOnlyIncomingTextAndCount" classname="org.arkikeskus.launcher.notifications.NotificationDotListenerServiceTest" time="0.015"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

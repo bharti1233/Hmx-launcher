@@ -1,7 +1,7 @@
 # PHASE 1 — LICENCE AND OPEN-SOURCE COMPLIANCE
 
 **Status: static licence SET VERIFIED (POM/license files read directly); resolved-graph evidence
-pending CI; no blocking issue found in the audited set.**
+COMMIT-VERIFIED from CI (run 41485053843). No blocking issue found in the audited set.**
 
 ## Direct dependencies sources of truth
 
@@ -21,12 +21,32 @@ Notes:
   were never sourced into this spike; nothing was copied from Lawnchair).
 - JUnit is build/test-time only; its EPL licence does not constrain the APK binary at all.
 
-## Evidence pending CI
+## Evidence pending CI → now VERIFIED (run 41485053843, `artifacts/ci/spike-deps.txt`)
 
-The `.module`-resolved *runtime classpath* can only claim the POM-declared set (above). The actual
-resolved graph is exported by CI (`spike-deps.txt`, configuration `debugRuntimeClasspath`), and
-this report will be annotated with the encountered `kyant:*`, JB-compose→androidx mapping, and any
-additional group-distribution surprises. Until then: "resolved-graph verification: pending CI run."
+The resolved `debugRuntimeClasspath` for `:app` confirms the POM-declared set with no surprises:
+
+```
++--- io.github.kyant0:backdrop:2.0.1
+|    \--- io.github.kyant0:backdrop-android:2.0.1
+|         +--- org.jetbrains.compose.foundation:foundation:1.12.0
+|         |    \--- org.jetbrains.compose.foundation:foundation-android:1.12.0
+|         +--- io.github.kyant0:shapes:1.2.1
+|         |    \--- io.github.kyant0:shapes-android:1.2.1
+```
+
+- Both Kyant0 libraries resolve to their `-android` KMP variants — the JB-Multiplatform
+  artifacts enter per-target and delegate normally to the androidx/coroutines/kotlin artefacts
+  already managed by the Compose BOM. All component groups in the resolved graph are
+  Apache/ASL-family or JetBrains Apache-family (same licence family as every pre-existing
+  androidx dependency).
+- Kotlin stdlib resolves to 2.4.21 upstream's own (newer than backdrop's 2.4.10 pin), so backdrop
+  contributes no older stdlib.
+- Every additional `kyant:*` / JB-compose group reached through the resolution IS the background
+  of the same Apache-2.0 project (Kyant0/AndroidLiquidGlass, Kyant0/Shapes, JetBrains Compose)
+  — no unknown-provenance groups appeared (checked across `spike-deps.txt`).
+
+Full resolved graphs (committed, permanent): `artifacts/ci/spike-deps.txt` and
+`artifacts/ci/baseline-deps.txt` (for comparison of what upstream alone resolved).
 
 ## Distribution hygiene (already satisfied this phase)
 
@@ -49,6 +69,6 @@ at the end of the phase).
 
 ## Verdict
 
-No unresolved blocking licence issue in everything reachable from the spike as coded. The only
-items to finish during the CI run: resolved-graph cross-check and a `NOTICE`-file plan at
-production (Phase 2). Open-source release remains feasible on Apache-2.0.
+No unresolved blocking licence issue in everything reachable from the spike as coded. The
+resolved-graph cross-check is complete (see above). Remaining work at production-time (Phase 2):
+the `NOTICE`-file plan. Open-source release remains feasible on Apache-2.0.

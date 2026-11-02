@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.arkikeskus.launcher.BackupImportActivityManifestTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-02T16:53:37.719Z" hostname="runnervmnwato" time="0.062">
+  <properties/>
+  <testcase name="otherFilesAreNotOffered" classname="org.arkikeskus.launcher.BackupImportActivityManifestTest" time="0.017"/>
+  <testcase name="aFilePathIsNotOffered" classname="org.arkikeskus.launcher.BackupImportActivityManifestTest" time="0.013"/>
+  <testcase name="shareOffersTheImportForAJsonFile" classname="org.arkikeskus.launcher.BackupImportActivityManifestTest" time="0.016"/>
+  <testcase name="openWithOffersTheImportForAJsonFile" classname="org.arkikeskus.launcher.BackupImportActivityManifestTest" time="0.013"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

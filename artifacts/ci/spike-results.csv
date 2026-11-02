@@ -1,0 +1,4 @@
+task,result,seconds
+:app:assembleDebug,PASS,253
+:app:testDebugUnitTest,PASS,58
+:app:lintDebug,PASS,158

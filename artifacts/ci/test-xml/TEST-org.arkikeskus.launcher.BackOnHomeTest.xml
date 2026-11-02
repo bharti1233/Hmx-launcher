@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.arkikeskus.launcher.BackOnHomeTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-02T16:53:32.459Z" hostname="runnervmnwato" time="5.254">
+  <properties/>
+  <testcase name="anOverlayThatHandlesBackItselfStillGoesFirst" classname="org.arkikeskus.launcher.BackOnHomeTest" time="3.084"/>
+  <testcase name="withoutItBackFinishesTheActivity" classname="org.arkikeskus.launcher.BackOnHomeTest" time="0.042"/>
+  <testcase name="backWithNothingOpenLeavesTheHomeActivityRunning" classname="org.arkikeskus.launcher.BackOnHomeTest" time="0.039"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

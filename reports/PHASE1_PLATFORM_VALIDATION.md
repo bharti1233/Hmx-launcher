@@ -11,8 +11,10 @@ Verified statically (and re-verified on CI in JVM tests):
 - `LauncherActivity` declares `MAIN + HOME + DEFAULT + LAUNCHER` (intent-filter),
   `singleTask`, `stateNotNeeded=true`, `excludeFromRecents`, task-affinity empty — textbook
   launcher configuration. So a spike build releases a *default-home candidate* out of the box.
-- CI test `SpikeManifestTest.appRegistersAsHomeCandidate` resolves the HOME intent-filter through
-  Robolectric's merged manifest (see test report).
+- CI test `SpikeManifestTest.appRegistersAsHomeCandidate` (green on run 41485053843) resolves the
+  HOME intent-filter through Robolectric's merged manifest.
+- CI test `SpikeManifestTest.spikeActivity_isLaunchable` (green) confirms the spike demo keeps a
+  launchable entry after the manifest addition.
 - RoleManager home-role availability, user-mediated selection flow, denied/cancelled handling:
   **NOT RUN** (requires UI device). Note: safe-by-design — `RoleManager` prompts are the upstream
   launcher's standard flow and the spike adds no custom code here.
@@ -29,8 +31,9 @@ Verified upstream facts (code inspection):
 - CI test asserts the spike itself keeps launchability intact.
 
 Runtime "discover provider → allocate id → bind → display one real widget → cleanup on cancel":
-**NOT RUN** (needs a device with real providers). Phase-1 verdict: architecture plausible, runtime
-unproven.
+**NOT RUN** (needs a device with real providers). Phase-1 verdict: architecture plausible
+  (upstream already allocates/drops pending widget ids and supports user-mediated pinning), runtime
+  unproven.
 
 ## Process recreation and wallpaper-change handling
 

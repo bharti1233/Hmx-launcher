@@ -27,20 +27,24 @@ everywhere they were not executed — nothing was invented.
 - 12 spike unit tests, all pure-JVM + reuse of upstream Robolectric for manifest checks.
 - Ten evidence reports + CI workflow + snapshot/push scripts.
 
-## Gate status (as of this revision — will be re-verified against CI)
+## Gate status (final, evidence from CI run 41485053843)
 
 | Gate | Criteria | Status |
 | --- | --- | --- |
-| A Build | ARK+Backdrop resolves and builds | **NOT RUN** → CI pending |
-| B Rendering | three glass surfaces render | **NOT RUN** (compile-verified only; pixel proof needs runtime) |
-| C Wallpaper | owned wallpaper + tinted fallback work | **PARTIAL** (implemented + state-tested; runtime NOT RUN) |
-| D API | 30/31/33 profiles behave | **PARTIAL** (policy unit-tested; pixels NOT RUN) |
+| A Build | ARK+Backdrop resolves and builds | **PASS** — see `reports/PHASE1_BUILD_COMPATIBILITY.md` (both baseline & spike green, ~253s assemble) |
+| B Rendering | three glass surfaces render | **PARTIAL** — code implements + compiles & lint-clean against Backdrop's verified API; pixel rendering NOT RUN (no runtime) |
+| C Wallpaper | owned wallpaper + tinted fallback work | **PARTIAL** — implemented + state-tested; runtime NOT RUN |
+| D API | 30/31/33 profiles behave | **PARTIAL** — policy unit-tested (12 tests green); pixels NOT RUN |
 | E Device | OPPO A38 measurements | **BLOCKED / NOT RUN** (no device access) |
-| F Platform | default-home + widget viability | **PARTIAL** (static manifest facts verified + CI JVM test; runtime NOT RUN) |
-| G Stability | process recreation + wallpaper changes | **PARTIAL** (invalidation contract tested; runtime NOT RUN) |
-| H Licence | no blocking licence issue | **PARTIAL** (static audit PASS; resolved-graph cross-check pending CI) |
-| I Tests | tests + lint documented | **NOT RUN** → CI pending |
-| J Isolation | production repo untouched | **PASS** (hash snapshot `artifacts/pristine/`, re-verified at end) |
+| F Platform | default-home + widget viability | **PARTIAL** — static manifest facts + CI JVM test (HOME filter resolves); runtime flows NOT RUN |
+| G Stability | process recreation + wallpaper changes | **PARTIAL** — invalidation contract tested; runtime NOT RUN |
+| H Licence | no blocking licence issue | **PASS** — static audit + resolved-graph verified on CI (Apache-family only; `artifacts/ci/*deps.txt`) |
+| I Tests | tests + lint documented | **PASS** — 65/65 tests green on CI, 0 lint errors (details: `reports/PHASE1_TEST_REPORT.md`) |
+| J Isolation | production repo untouched | **PASS** — byte-level `artifacts/pristine/` snapshot re-diffed at the end; zero diffs |
+
+Overall Phase-1 verdict: **PARTIAL PASS (honest)** — Gates A, H, I, J pass with CI evidence;
+C/D/F/G pass at the code+test level but their runtime halves stay open; B/E cannot be judged without
+a device/emulator. This is exactly what an isolated spike without hardware can honestly prove.
 
 ## What worked (already evidenced)
 
@@ -72,9 +76,21 @@ everywhere they were not executed — nothing was invented.
 
 ## Recommendation
 
-**PROCEED WITH CONDITIONS** — conditional on the two CI-required gates (A, I) returning PASS from
-the runner, and on the owner understanding that B/E and all runtime gates stay OPEN until hardware
-is available. Phase 1 does not complete on code alone.
+**PROCEED WITH CONDITIONS** — Gates A (build), H (licence), I (tests+lint), J (isolation) PASS on
+CI evidence. Conditions before the product decision is made final: (1) one device pass (OPPO A38 or
+an emulator) to cover gates B/E and the runtime halves of C/D/F/G; (2) keep the spike code isolated
+as it is now (it is; the module extraction is Phase-2 hygiene); (3) re-run the resolved-licence
+audit when new dependencies land. Everything Phase 1 had to prove without hardware is proven.
 
-*(This file is finalized — with every table above populated from the actual CI run — immediately
-after the workflow completes; the run artifacts are copied into `artifacts/` as the evidence pack.)*
+## Evidence index
+
+| Run | Commit | Baseline | Spike | Notes |
+| --- | --- | --- | --- | --- |
+| 41480614719 | 92deb7f5 | PASS | FAIL | run-#1 spike compile errors (spike-only; fixed) |
+| 41482779958 | 40f4bc89 | PASS | PASS | fix validated |
+| 41485053843 | f6e624f5 | PASS | PASS | **final evidence run** — test XMLs + lint reports exported (`artifacts/ci/`) |
+
+CI logs/artifacts: https://github.com/bharti1233/Hmx-launcher/actions (runs above; artifact names
+`phase1-baseline-ci` / `phase1-spike-ci`).
+
+*(This file is now final: every table above is populated from the actual CI runs.)*

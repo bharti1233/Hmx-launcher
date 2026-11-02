@@ -1,7 +1,7 @@
 # PHASE 1 — GLASS RENDERING
 
-**Status: IMPLEMENTED + COMPILE-VERIFIED PATH; RUNTIME RENDERING NOT RUN (no emulator/device in
-this phase).** Screenshots of the three surfaces: NOT RUN (no runtime). What *is* verified:
+**Status: IMPLEMENTED; COMPILE + LINT-VERIFIED VIA CI (runs 41482779958, 41485053843);
+RUNTIME RENDERING NOT RUN (no emulator/device in this phase).** Screenshots of the three surfaces: NOT RUN (no runtime). What *is* verified:
 the exact Backdrop 2.0.1 API surface (from the published sources jar) and the implementation's
 conformance to it; successful compilation is confirmed by CI (see build report).
 

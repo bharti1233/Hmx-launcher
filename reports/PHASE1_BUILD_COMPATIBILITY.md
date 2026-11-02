@@ -1,6 +1,6 @@
 # PHASE 1 — BUILD COMPATIBILITY
 
-**Status: METHOD DEFINED; EXECUTION RUNS ON CI.** The owner forbids local builds ("don't run or
+**Status: COMPLETE — PASS on the hosted runner (run 41485053843, run #3 vs baseline side-by-side).** The owner forbids local builds ("don't run or
 build apk locally"), so no `gradlew` command was executed in the isolated workspace on this
 machine. Hosted GitHub Actions is the only build executor. Both verification jobs are wired in
 `.github/workflows/phase1.yml`; results are collected from the run artifacts.
@@ -27,17 +27,31 @@ Expected evidence for Gate A:
 
 Populated from the CI run recorded in `artifacts/` (durations are wall-clock from the runner):
 
-| Project | Task | Result | Duration |
-| --- | --- | --- | --- |
-| baseline-ark | :app:assembleDebug | NOT RUN YET | — |
-| baseline-ark | :app:testDebugUnitTest | NOT RUN YET | — |
-| baseline-ark | :app:lintDebug | NOT RUN YET | — |
-| spike-ark-backdrop | :app:assembleDebug | NOT RUN YET | — |
-| spike-ark-backdrop | :app:testDebugUnitTest | NOT RUN YET | — |
-| spike-ark-backdrop | :app:lintDebug | NOT RUN YET | — |
+## Results (run 41485053843, commit f6e624f5 — both jobs green)
 
-*(This table is updated in-place immediately after the CI run; the committed CI/artifact CSVs are
-the primary source.)*
+Durations are wall-clock seconds from the runner (matches `artifacts/ci/*-results.csv`):
+
+| Project | Task | Result | Duration | — | Task | Result | Duration |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| baseline-ark | :app:assembleDebug | **PASS** | 254 s | / | spike-ark-backdrop | :app:assembleDebug | **PASS** | 253 s |
+| baseline-ark | :app:testDebugUnitTest | **PASS** | 58 s | / | spike-ark-backdrop | :app:testDebugUnitTest | **PASS** | 58 s |
+| baseline-ark | :app:lintDebug | **PASS** | 156 s | / | spike-ark-backdrop | :app:lintDebug | **PASS** | 158 s |
+
+Key readings:
+
+- **Backdrop 2.0.1 added zero measurable build cost** (assemble 253 s vs baseline 254 s, tests
+  58 s vs 58 s, lint 158 s vs 156 s) and resolved cleanly — no conflict, no forced exclamation
+  needed in the Gradle reports (`artifacts/ci/spike-deps.txt`).
+- History (honest): CI run #1 (commit `92deb7f5`) failed — spike-only Kotlin errors
+  (`missing Composable import`, `Backdrop` vs `LayerBackdrop` typing, `Dp.roundToPx()` → Int
+  instead of `toPx()` Float). One controlled fix commit (`40f4bc89`), run #2 green; final
+  evidence run #3 (commit `f6e624f5`) green with the test-XML exporter enabled. Baseline was green
+  on every run (upstream compiles on JDK 21 unmodified).
+- Full logs of every task live in run artifacts (`phase1-spike-ci`, `phase1-baseline-ci`);
+  per-run XMLs exported to `app/build/test-results/testDebugUnitTest` are preserved in
+  `artifacts/ci/test-xml/`.
+
+**Gate A verdict: PASS.** ARK + Backdrop 2.0.1 resolves and builds, tests and lint included.
 
 ## Known / controlled diffs from upstream
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.arkikeskus.launcher.ui.SystemBarContrastTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-11-02T16:53:47.633Z" hostname="runnervmnwato" time="0.046">
+  <properties/>
+  <testcase name="whenTheDrawerCoversEachBar" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.002"/>
+  <testcase name="overTheDrawerItsSurfaceDecides" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.0"/>
+  <testcase name="aSurfaceCoveringHomeDecides" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.0"/>
+  <testcase name="aWeakOwnBarScrimIsNoDarkBacking" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.0"/>
+  <testcase name="aSeeThroughDrawerOverTheOwnDarkBarKeepsLightStatusGlyphs" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.015"/>
+  <testcase name="theNavigationBarFollowsTheDrawerOrTheWallpaper" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.0"/>
+  <testcase name="inputsThatArriveLaterAreFollowed" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.004"/>
+  <testcase name="aTopScrimBacksLightGlyphsOnHome" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.0"/>
+  <testcase name="aColourChangeDuringTheFirstReadIsNotOverwrittenByIt" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.021"/>
+  <testcase name="aBlankedOwnBarIsNoDarkBacking" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.001"/>
+  <testcase name="theFirstReadLandsWhenNothingNewerCame" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.001"/>
+  <testcase name="aSeeThroughDrawerLetsWhatIsBehindItDecide" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.0"/>
+  <testcase name="theWallpaperHintIsRead" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.0"/>
+  <testcase name="theDimOverHomeUnderTheDrawerCountsInTheBackdrop" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.001"/>
+  <testcase name="theOwnBarsScrimCountsOnlyAsStrongAsItIs" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.0"/>
+  <testcase name="theTopScrimStaysUntilTheDrawerCoversTheBar" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.0"/>
+  <testcase name="onTheLaunchersOwnBarTheGlyphsAreLight" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.0"/>
+  <testcase name="theTopScrimBacksAKeptOrRevealedSystemBarOverABlankedOwnBar" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.0"/>
+  <testcase name="onHomeTheWallpaperDecides" classname="org.arkikeskus.launcher.ui.SystemBarContrastTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

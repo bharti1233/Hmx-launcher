@@ -34,10 +34,10 @@ Expected API behaviour (from the owner's feasibility table):
   this phase (an optional extra); safe degradation remains in place if a particular OEM GPU
   mis-renders (perf pass will check).
 
-## Unit evidence (CI-executed)
+## Unit evidence (CI-executed, run 41485053843): ALL GREEN
 
-`SpikeGlassProfileTest` — 6 tests: API 30→Tinted, 31→Blurred, 32→Blurred, 33→Refractive,
-35→Refractive, missing-backdrop→Tinted. Results heading is in the test report.
+`SpikeGlassProfileTest` — 6 tests green: API 30→Tinted, 31→Blurred, 32→Blurred, 33→Refractive,
+35→Refractive, missing-backdrop→Tinted (see `artifacts/ci/test-xml/`).
 
 ## Runtime verification (NOT RUN — blocked on hardware)
 

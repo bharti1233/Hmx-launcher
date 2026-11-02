@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.arkikeskus.launcher.WidgetConfigLaunchTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-02T16:53:40.667Z" hostname="runnervmnwato" time="6.342">
+  <properties/>
+  <testcase name="fromAndroid14TheLauncherGrantsTheStart" classname="org.arkikeskus.launcher.WidgetConfigLaunchTest" time="0.812"/>
+  <testcase name="before14ThereIsNothingToGrant" classname="org.arkikeskus.launcher.WidgetConfigLaunchTest" time="0.871"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

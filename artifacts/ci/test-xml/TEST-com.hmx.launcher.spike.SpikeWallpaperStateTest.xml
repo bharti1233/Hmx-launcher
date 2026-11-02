@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.hmx.launcher.spike.SpikeWallpaperStateTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-02T16:53:32.450Z" hostname="runnervmnwato" time="0.001">
+  <properties/>
+  <testcase name="ownedWallpaperFile_reportsOwned" classname="com.hmx.launcher.spike.SpikeWallpaperStateTest" time="0.0"/>
+  <testcase name="sameState_reportsNoInvalidation" classname="com.hmx.launcher.spike.SpikeWallpaperStateTest" time="0.0"/>
+  <testcase name="changingFile_reportsBackdropInvalidation" classname="com.hmx.launcher.spike.SpikeWallpaperStateTest" time="0.001"/>
+  <testcase name="noOwnedWallpaper_reportsFallback" classname="com.hmx.launcher.spike.SpikeWallpaperStateTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

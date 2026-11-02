@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.arkikeskus.launcher.OverlayGuardTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-02T16:53:37.784Z" hostname="runnervmnwato" time="2.881">
+  <properties/>
+  <testcase name="theLauncherMayHideOverlays" classname="org.arkikeskus.launcher.OverlayGuardTest" time="0.037"/>
+  <testcase name="overlaysAreHiddenWhileTheImportIsShown" classname="org.arkikeskus.launcher.OverlayGuardTest" time="0.038"/>
+  <testcase name="android11IsLeftAlone" classname="org.arkikeskus.launcher.OverlayGuardTest" time="1.246"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

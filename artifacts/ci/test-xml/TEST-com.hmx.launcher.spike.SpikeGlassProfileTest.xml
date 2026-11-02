@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.hmx.launcher.spike.SpikeGlassProfileTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-02T16:53:25.197Z" hostname="runnervmnwato" time="0.017">
+  <properties/>
+  <testcase name="api30_selectsTinted" classname="com.hmx.launcher.spike.SpikeGlassProfileTest" time="0.002"/>
+  <testcase name="api35_selectsRefractive" classname="com.hmx.launcher.spike.SpikeGlassProfileTest" time="0.001"/>
+  <testcase name="missingBackdrop_downgradesToTinted" classname="com.hmx.launcher.spike.SpikeGlassProfileTest" time="0.001"/>
+  <testcase name="api32_boundary_selectsBlurred" classname="com.hmx.launcher.spike.SpikeGlassProfileTest" time="0.0"/>
+  <testcase name="api31_selectsBlurred" classname="com.hmx.launcher.spike.SpikeGlassProfileTest" time="0.0"/>
+  <testcase name="api33_selectsRefractive" classname="com.hmx.launcher.spike.SpikeGlassProfileTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

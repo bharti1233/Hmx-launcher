@@ -1,6 +1,7 @@
 # PHASE 1 — WALLPAPER VALIDATION
 
-**Status: IMPLEMENTED + STATE-TESTED; RUNTIME WALLPAPER RENDERING NOT RUN (no device).**
+**Status: COMPILE + TEST-VERIFIED VIA CI (run 41485053843); RUNTIME WALLPAPER RENDERING NOT RUN
+(no device).**
 
 ## Architecture
 
@@ -61,8 +62,10 @@ also shows this fallback rather than crashing.
 
 ## Test coverage
 
-- `SpikeWallpaperStateTest` (4 tests): owned-vs-fallback classification, change detection
-  (invalidation contract), no-op stability.
+- `SpikeWallpaperStateTest` (4 tests, all green on CI): owned-vs-fallback classification, change
+  detection (invalidation contract), no-op stability.
 - Runtime items (actual displayed wallpaper, picker result flow, crop behaviour, wallpaper-change
   visual continuity, Glass first-draw latency): **NOT RUN** — need a device/emulator; they are the
   top backlog items of the follow-on device pass.
+- CI cross-evidence: `SpikeManifestTest.spikeActivity_isLaunchable` green (demo reachable on a
+  merged-manifest level) — see the platform report.
